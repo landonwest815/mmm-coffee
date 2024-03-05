@@ -14,11 +14,12 @@ struct testView: View {
     @State private var words: [String] = []
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 4)
     
+    @State private var randomLetters = ""
+    
     @State private var success = true
     
     var body: some View {
-        
-        
+    
         VStack {
             
             VStack(spacing: 3) {
@@ -72,64 +73,64 @@ struct testView: View {
                     .fontWeight(.thin)
                     .shadow(radius: 10)
                 
-                    Text("a")
+                    Text(randomLetters[0])
                     .font(.system(size: 75))
-                    .shadow(color: .white, radius: selectedLetter == "a" ? 10 : 0)
+                    .shadow(color: .white, radius: selectedLetter == randomLetters[0] ? 10 : 0)
                         .fontDesign(.rounded)
                         .fontWeight(.semibold)
                         .rotationEffect(Angle(degrees: -30))
                         .offset(CGSize(width: -60, height: -60))
                         .shadow(radius: 10)
                         .onTapGesture {
-                            addLetter(letter: "a")
+                            addLetter(letter: randomLetters[0])
                         }
                     
-                    Text("c")
+                    Text(randomLetters[1])
                         .font(.system(size: 75))
-                        .shadow(color: .white, radius: selectedLetter == "c" ? 10 : 0)
+                        .shadow(color: .white, radius: selectedLetter == randomLetters[1] ? 10 : 0)
                         .fontDesign(.rounded)
                         .fontWeight(.semibold)
                         .rotationEffect(Angle(degrees: -10))
                         .offset(CGSize(width: -75, height: 20))
                         .shadow(radius: 10)
                         .onTapGesture {
-                            addLetter(letter: "c")
+                            addLetter(letter: randomLetters[1])
                         }
                     
-                    Text("t")
+                    Text(randomLetters[2])
                         .font(.system(size: 75))
-                        .shadow(color: .white, radius: selectedLetter == "t" ? 10 : 0)
+                        .shadow(color: .white, radius: selectedLetter == randomLetters[2] ? 10 : 0)
                         .fontDesign(.rounded)
                         .fontWeight(.semibold)
                         .rotationEffect(Angle(degrees: 15))
                         .offset(CGSize(width: 40, height: -60))
                         .shadow(radius: 10)
                         .onTapGesture {
-                            addLetter(letter: "t")
+                            addLetter(letter: randomLetters[2])
                         }
                     
-                    Text("p")
+                    Text(randomLetters[3])
                         .font(.system(size: 75))
-                        .shadow(color: .white, radius: selectedLetter == "p" ? 10 : 0)
+                        .shadow(color: .white, radius: selectedLetter == randomLetters[3] ? 10 : 0)
                         .fontDesign(.rounded)
                         .fontWeight(.semibold)
                         .rotationEffect(Angle(degrees: -10))
                         .offset(CGSize(width: 75, height: 15))
                         .shadow(radius: 10)
                         .onTapGesture {
-                            addLetter(letter: "p")
+                            addLetter(letter: randomLetters[3])
                         }
                     
-                    Text("n")
+                    Text(randomLetters[4])
                         .font(.system(size: 75))
-                        .shadow(color: .white, radius: selectedLetter == "n" ? 10 : 0)
+                        .shadow(color: .white, radius: selectedLetter == randomLetters[4] ? 10 : 0)
                         .fontDesign(.rounded)
                         .fontWeight(.semibold)
                         .rotationEffect(Angle(degrees: 15))
                         .offset(CGSize(width: 0, height: 75))
                         .shadow(radius: 10)
                         .onTapGesture {
-                            addLetter(letter: "n")
+                            addLetter(letter: randomLetters[4])
                         }
                 
             }
@@ -147,6 +148,9 @@ struct testView: View {
                         .padding() // Add padding around the grid for better appearance
             }
             .frame(height: 150)
+        }
+        .onAppear() {
+            randomLetters =  randomLetter(vowelsNeeded: 2, consonantsNeeded: 3)
         }
         .onTapGesture {
             selectedLetter = ""
