@@ -22,26 +22,29 @@ struct testView: View {
     @State private var scoreIncrement = 0
     @State private var showIncrement = false
     
+    private var wordValidator = WordValidator()
+    
     var body: some View {
     
         VStack {
             
             VStack(spacing: 3) {
                 
-                ZStack {
-                    Text(String(score))
-                        .font(.system(size: 50))
+                    ZStack {
+                        Text(String(score))
+                            .font(.system(size: 50))
+                            .frame(width: 150)
                         
-                    if showIncrement {
-                        Text("+" + String(scoreIncrement))
-                            .font(.system(size: 25))
-                            .offset(CGSize(width: 100, height: 0))
-                            .transition(.scale)
+                        if showIncrement {
+                            Text("+" + String(scoreIncrement))
+                                .font(.system(size: 25))
+                                .offset(CGSize(width: 100, height: 0))
+                                .transition(.scale)
+                        }
                     }
-                }
-                .fontDesign(.rounded)
-                .fontWeight(.semibold)
-                .shadow(radius: 10)
+                    .fontDesign(.rounded)
+                    .fontWeight(.semibold)
+                    .shadow(radius: 10)
                 
                 HStack {
                     ZStack {
@@ -163,15 +166,16 @@ struct testView: View {
                         LazyVGrid(columns: columns, spacing: 20) {
                             ForEach(words, id: \.self) { word in
                                 Text(word)
-                                    .font(.system(size: 25))
+                                    .font(.system(size: 20))
                                     .fontDesign(.rounded)
                                     .fontWeight(.semibold)
                                     .shadow(radius: 10)
                             }
                         }
-                        .padding() // Add padding around the grid for better appearance
+                        .padding(.horizontal, 15)
             }
-            .frame(height: 100)
+            .ignoresSafeArea()
+            .frame(height: 200)
         }
         .onAppear() {
             let sequenceGenerator = RandomLetterSequence()
@@ -193,19 +197,20 @@ struct testView: View {
         selection += selectedLetter
         
         if selection.count > 2 && !words.contains(selection) {
-            isWordValid(selection) { isValid in
+            wordValidator.isWordValid(selection) { isValid in
                 if isValid {
                     scoreIncrement = 100 + Int(pow(Double(5), Double(selection.count)))
                     score += scoreIncrement
                     withAnimation {
                         showIncrement.toggle()
-                    } 
+                    }
                     words.append(selection)
                     selection = ""
                     selectedLetter = ""
                     success.toggle()   
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
                         selection = ""
+                        selectedLetter = ""
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.66) {
@@ -219,34 +224,6 @@ struct testView: View {
                 }
             }
         }
-    }
-    
-    func isWordValid(_ word: String, completion: @escaping (Bool) -> Void) {
-        guard let url = URL(string: "https://api.dictionaryapi.dev/api/v2/entries/en/\(word)") else {
-            completion(false)
-            return
-        }
-        
-        let session = URLSession.shared
-        let request = URLRequest(url: url)
-        
-        let task = session.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                completion(false)
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                // If the API returns a 200 status code, the word is valid.
-                completion(true)
-            } else {
-                // If the status code is not 200, the word might not be valid.
-                completion(false)
-            }
-        }
-        
-        task.resume()
     }
 }
 

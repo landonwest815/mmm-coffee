@@ -17,6 +17,7 @@
 		91D802352B9690A300D1BE97 /* settingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D802342B9690A300D1BE97 /* settingsView.swift */; };
 		91D802382B97718800D1BE97 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D802372B97718800D1BE97 /* StringExtension.swift */; };
 		91D8023A2B9775A500D1BE97 /* RandomLetterSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D802392B9775A500D1BE97 /* RandomLetterSequence.swift */; };
+		91D8023C2B97B98D00D1BE97 /* WordValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D8023B2B97B98D00D1BE97 /* WordValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		91D802342B9690A300D1BE97 /* settingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsView.swift; sourceTree = "<group>"; };
 		91D802372B97718800D1BE97 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		91D802392B9775A500D1BE97 /* RandomLetterSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomLetterSequence.swift; sourceTree = "<group>"; };
+		91D8023B2B97B98D00D1BE97 /* WordValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			children = (
 				91D802372B97718800D1BE97 /* StringExtension.swift */,
 				91D802392B9775A500D1BE97 /* RandomLetterSequence.swift */,
+				91D8023B2B97B98D00D1BE97 /* WordValidator.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				91D802312B961D1A00D1BE97 /* testView.swift in Sources */,
 				91D802382B97718800D1BE97 /* StringExtension.swift in Sources */,
 				91D802332B961FF400D1BE97 /* testView2.swift in Sources */,
+				91D8023C2B97B98D00D1BE97 /* WordValidator.swift in Sources */,
 				91D802232B961CF800D1BE97 /* ContentView.swift in Sources */,
 				91D802352B9690A300D1BE97 /* settingsView.swift in Sources */,
 				91D802252B961CF800D1BE97 /* Item.swift in Sources */,

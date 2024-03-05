@@ -16,25 +16,28 @@ struct testView2: View {
     var body: some View {
         NavigationView {
             VStack {
-                ZStack {
-                    Text("mmm... ")
-                    + Text("coffee")
-                        .strikethrough(yesCoffee, color: .brown)
+                VStack {
+                    ZStack {
+                        Text("mmm... ")
+                        + Text("coffee")
+                            .strikethrough(yesCoffee, color: .brown)
+                    }
+                    .font(.system(size: 50))
+                    .fontDesign(.rounded)
+                    .fontWeight(.semibold)
+                    .shadow(radius: 10)
+                    
+                    if yesCoffee {
+                        Text("hot chocolate")
+                            .font(.system(size: 50))
+                            .fontDesign(.rounded)
+                            .fontWeight(.semibold)
+                            .shadow(radius: 10)
+                            .foregroundStyle(.brown)
+                            .transition(.scale)
+                    }
                 }
-                .font(.system(size: 50))
-                .fontDesign(.rounded)
-                .fontWeight(.semibold)
-                .shadow(radius: 10)
-                
-                if yesCoffee {
-                    Text("hot chocolate")
-                        .font(.system(size: 50))
-                        .fontDesign(.rounded)
-                        .fontWeight(.semibold)
-                        .shadow(radius: 10)
-                        .foregroundStyle(.brown)
-                }
-                
+                .frame(height: 150)
                 ZStack {
                     Image(systemName: "wind")
                         .resizable()
@@ -89,6 +92,7 @@ struct testView2: View {
                     .shadow(radius: 10)
                     .padding(25)
             }
+            .offset(CGSize(width: 0, height: -25))
             .toolbar {
                 ToolbarItemGroup(placement: .topBarLeading) {
                             Button {
