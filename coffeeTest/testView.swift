@@ -18,11 +18,31 @@ struct testView: View {
     
     @State private var success = true
     
+    @State private var score = 0
+    @State private var scoreIncrement = 0
+    @State private var showIncrement = false
+    
     var body: some View {
     
         VStack {
             
             VStack(spacing: 3) {
+                
+                ZStack {
+                    Text(String(score))
+                        .font(.system(size: 50))
+                        
+                    if showIncrement {
+                        Text("+" + String(scoreIncrement))
+                            .font(.system(size: 25))
+                            .offset(CGSize(width: 100, height: 0))
+                            .transition(.scale)
+                    }
+                }
+                .fontDesign(.rounded)
+                .fontWeight(.semibold)
+                .shadow(radius: 10)
+                
                 HStack {
                     ZStack {
                         Text(selection)
@@ -44,6 +64,8 @@ struct testView: View {
                         }
                         
                         Image(systemName: "fireworks")
+                            .resizable()
+                            .frame(width: 75, height: 75)
                             .symbolEffect(.appear, isActive: success)
                             .symbolEffect(.bounce, value: success)
                     }
@@ -52,11 +74,13 @@ struct testView: View {
                 .fontDesign(.rounded)
                 .fontWeight(.semibold)
                 .shadow(radius: 10)
+                .frame(height: 100)
                 
 //                Rectangle()
 //                    .frame(width: CGFloat(selection.count) * 40, height: 5)
             }
             .frame(height: 100)
+            .padding()
             
             ZStack {
                 
@@ -147,7 +171,7 @@ struct testView: View {
                         }
                         .padding() // Add padding around the grid for better appearance
             }
-            .frame(height: 150)
+            .frame(height: 100)
         }
         .onAppear() {
             let sequenceGenerator = RandomLetterSequence()
@@ -171,13 +195,26 @@ struct testView: View {
         if selection.count > 2 && !words.contains(selection) {
             isWordValid(selection) { isValid in
                 if isValid {
+                    scoreIncrement = 100 + Int(pow(Double(5), Double(selection.count)))
+                    score += scoreIncrement
+                    withAnimation {
+                        showIncrement.toggle()
+                    } 
                     words.append(selection)
                     selection = ""
                     selectedLetter = ""
-                    success.toggle()                    
+                    success.toggle()   
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
+                        selection = ""
+                    }
+                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.66) {
-                            selection = ""
                             success.toggle()
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        withAnimation {
+                            showIncrement.toggle()
+                        }
                     }
                 }
             }
