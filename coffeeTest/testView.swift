@@ -150,7 +150,8 @@ struct testView: View {
             .frame(height: 150)
         }
         .onAppear() {
-            randomLetters =  randomLetter(vowelsNeeded: 2, consonantsNeeded: 3)
+            let sequenceGenerator = RandomLetterSequence()
+            randomLetters =  sequenceGenerator.randomLetter(vowelsNeeded: 2, consonantsNeeded: 3)
         }
         .onTapGesture {
             selectedLetter = ""
@@ -175,6 +176,7 @@ struct testView: View {
                     selectedLetter = ""
                     success.toggle()                    
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.66) {
+                            selection = ""
                             success.toggle()
                     }
                 }
